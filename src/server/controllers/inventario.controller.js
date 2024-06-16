@@ -7,11 +7,11 @@ export const findAll1 = (req, res) =>{sql.findAll1(req.query)
   .catch((error) => res.status(500).json({ status: false, code: 500, message: error }))}
 
 export const findAll2 = (req, res) => sql.findAll2(req.query)
-  .then((result) => res.status(200).json({ status: true, code: 200, message: result }))
+  .then((result) => res.status(200).json({ status: true, code: 200, message: result}))
   .catch((error) => res.status(500).json({ status: false, code: 500, message: error }))
 
-// funcion original que trae todo sin el formato HATEOAS
-//
+
+// // funcion original que trae todo sin el formato HATEOAS
 // export const findAll1 = (req, res) =>{sql.findAll1(req.query)
 //   .then((result) => res.status(200).json({ status: true, code: 200, message: result }))
 //   .catch((error) => res.status(500).json({ status: false, code: 500, message: error }))
