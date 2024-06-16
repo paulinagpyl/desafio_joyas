@@ -1,48 +1,36 @@
 import format from 'pg-format'
 import db from '../database/db_connect.js'
-//import { response } from 'express'
 
-
-// export const findAllHateoas = async ()=>{
-//   const alljoyas =  await Pool.query('SELECT * FROM inventario')
-//   return alljoyas.rows
-// }
-
-export const prepararHATEOAS = (inventario) => {
-  const results = inventario.map((joya) => {
+export const prepararHATEOAS = (data) => {
+  const total = data.length;
+  const totalStock = data.reduce((sum, joya) => sum + joya.stock, 0);
+  
+  const results = data.map((joya) => {
     return {
       name: joya.nombre,
       href: `/joyas/joyas/${joya.id}`,
     };
   });
-  const total = results.length;
   const HATEOAS = {
-    total,
-    results,
+    "totalJoyas":total,
+    "totalStock":totalStock,
+    "results": results
   };
   return HATEOAS;
 };
 
-export const findAll1 = async ({ limits = 10, page = 1, order_by: orderBy = 'id_asc' }, response) => {
-  const [column, sort] = orderBy.split('_');
-  const offset = (page - 1) * limits;
-  const formattedQuery = format(
-    `SELECT * FROM INVENTARIO ORDER BY %I %s LIMIT %L OFFSET %L;`,
-    column,
-    sort,
-    limits,
-    offset
-  );
-  try {
-    const respDatos = await db.query(formattedQuery); 
-    const HATEOAS = prepararHATEOAS(respDatos.rows); 
-    response.json(HATEOAS);
-  } catch (error) {
-    console.error('Database query failed:', error);
-    response.status(500).json({ error: 'Database query failed' });
-  }
+// exporta a inventario.controller los datos con limite, orden y paginación, sin formato aún
+export const findAll1 = ({ limits = 10, page = 1, order_by: orderBy = 'id_asc' }) => {
+  let query = `SELECT * FROM INVENTARIO`
+  console.log(query)
+  const [column,sort]=orderBy.split('_')
+  const offset = Math.abs(+page !=0 ? page -1 : 0) * limits
+  const formattedQuery = format(`${query} ORDER BY %s %s LIMIT %s OFFSET %s;`,column,sort, limits, offset)
+  console.log(formattedQuery)
+  return db(formattedQuery)
 };
 
+//exporta a invetario.controller los datos con filtro
 export const findAll2 = ({precio_max : precioMax, precio_min : precioMin, categoria, metal}) => {
   let query = 'SELECT * FROM inventario'
   const filtros =[]
