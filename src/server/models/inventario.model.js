@@ -6,7 +6,7 @@ export const prepararHATEOAS = (data) => {
   const total = data.length;
   const totalStock = data.reduce((sum, joya) => sum + joya.stock, 0);
   const results = data.map((joya) => {
-    return {name: joya.nombre,href: `/joyas/joyas/${joya.id}`};
+    return {name: joya.nombre,href: `/joyas/joya/${joya.id}`};
   });
   const HATEOAS = {"totalJoyas":total,"totalStock":totalStock,"results": results};
   return HATEOAS;
@@ -30,7 +30,7 @@ export const findAll2 = ({precio_max : precioMax, precio_min : precioMin, catego
   if (precioMax){values.push(precioMax);filtros.push(`precio <= $${values.length}`)}
   if (categoria){values.push(categoria);filtros.push(`categoria = $${values.length}`)}
   if (metal){ values.push(metal);filtros.push(`metal = $${values.length}`)}
-  if(filtros.length >0) {query += ` WHERE ${filtros.join( ' AND  ')}`}
-  const formattedQuery = format(`${query};`)
-  return db(formattedQuery, values)
+  if(filtros.length >0) {query += ` WHERE ${filtros.join( ' AND ')}`}
+  // const formattedQuery = format(`${query};`) // no es necesario con format
+  return db(query, values)
 }
