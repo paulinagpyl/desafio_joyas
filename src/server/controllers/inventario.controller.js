@@ -1,5 +1,4 @@
 import * as sql from '../models/inventario.model.js'
-import HATEOAS from '../helpers/hateoas,js'
 
 export const findAll1 = (req, res) => sql.findAll1(req.query)
   .then((result) => res.status(200).json({ status: true, code: 200, message: result }))
