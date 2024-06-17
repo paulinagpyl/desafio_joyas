@@ -1,5 +1,10 @@
 # G51 - Clase Api Avanzada
 
+# Integrantes:
+# Paulina González
+# Esteban Olivares
+# Cristian Pozo
+
 Crear una API REST con paginación, ordenamiento y filtros de registros alojados en PostgreSQL.
 
 - Especificar el límite de registros que se obtiene al consultar una ruta GET de una API REST
