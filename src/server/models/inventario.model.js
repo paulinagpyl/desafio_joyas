@@ -8,8 +8,7 @@ export const prepararHATEOAS = (data) => {
   const results = data.map((joya) => {
     return { name: joya.nombre, href: `/joyas/joya/${joya.id}` }
   })
-  const HATEOAS = { totalJoyas: total, totalStock, results }
-  return HATEOAS
+  return { totalJoyas: total, totalStock, results }
 }
 
 // exporta a inventario.controller los datos con limite, orden y paginación, sin formato aún
@@ -31,6 +30,5 @@ export const findAll2 = ({ precio_max: precioMax, precio_min: precioMin, categor
   if (categoria) { values.push(categoria); filtros.push(`categoria = $${values.length}`) }
   if (metal) { values.push(metal); filtros.push(`metal = $${values.length}`) }
   if (filtros.length > 0) { query += ` WHERE ${filtros.join(' AND ')}` }
-  // const formattedQuery = format(`${query};`) // no es necesario con format
   return db(query, values)
 }

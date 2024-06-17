@@ -14,6 +14,7 @@ const config = {
 
 const pool = new Pool(config)
 
+// captura errores y envía query
 const db = (query, values) => pool
   .query(query, values)
   .then(({ rows }) => rows)
