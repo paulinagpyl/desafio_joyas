@@ -7,6 +7,47 @@ Crear una API REST con paginación, ordenamiento y filtros de registros alojados
 - Paginar los registros que se devuelven en una consulta GET de una API REST
 - Filtrar los registros que se devuelven en base a los parámetros recibidos en la query strings
 
+# Estructura
+
+desafio_joyas/
+│
+├── .env.example
+├── .gitignore
+├── database/
+│   ├── DDL.sql
+│   └── DML.sql
+│
+├── index.js
+├── LICENSE.md
+├── package.json
+├── README.md
+│
+└── src/
+    └── server/
+        ├── app.js
+        │
+        ├── controllers/
+        │   ├── errors.controller.js
+        │   └── inventario.controller.js
+        │
+        ├── database/
+        │   └── db_connect.js
+        │
+        ├── middlewares/
+        │   └── serverLog.middleware.js
+        │
+        ├── models/
+        │   └── inventario.model.js
+        │
+        └── routers/
+            ├── errors.router.js
+            ├── index.js
+            └── inventario.router.js
+    │
+    └── util/
+        └── auth/
+            ├── bcrypt.js
+            └── jwt.js
 
 ## Desarrollo
 
