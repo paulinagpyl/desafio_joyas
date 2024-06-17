@@ -6,5 +6,4 @@ const router = Router()
 router.get('/joyas', inventarioController.findAll1)
 router.get('/joyas/filtros', inventarioController.findAll2)
 
-
 export default router
